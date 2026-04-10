@@ -32,8 +32,10 @@ Bir VS Code eklentisi mevcuttur. Bu repodaki .vsix dosyasını indirip VS Code'a
 Bu kısımda Üzüm dilinin nasıl kullanılabileceğini öğrenebilirsiniz.
 
 ### Temeller
--If ve while gibi döngüler için süslü yay ayraçlar gerekir ({}) \n
--Sonda noktalı virgül gereklidir (;) \n
+-If ve while gibi döngüler için süslü yay ayraçlar gerekir ({})
+
+-Sonda noktalı virgül gereklidir (;)
+
 -Yorum satırları iki eğik çizgi ile oluşturulur (//)
 
 ### Değişken oluşturma
