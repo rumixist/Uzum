@@ -41,7 +41,7 @@ Bu kısımda Üzüm dilinin nasıl kullanılabileceğini öğrenebilirsiniz.
     int x = 54; // tam sayı
     str y = "İstanbul"; // metin
     bool uzum_en_iyi_dil_mi = true; // mantıksal değişken
-    num z = 19.99; // ondalıklı sayı
+    num z = 19.99; // ondalıklı da olabilen her türlü sayı
     char a = 'A'; // bir karakter
 
     var o = 78;
