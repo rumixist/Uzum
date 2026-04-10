@@ -8,23 +8,24 @@ Bir VS Code eklentisi mevcuttur. Bu repodaki .vsix dosyasını indirip VS Code'a
 
 Örnek kod
 ´´´
-num HEDEF_HIZ = 28000;
-num suankiHiz = 0;
-num yakit = 95;
 
-while (suankiHiz < HEDEF_HIZ) {
-    suankiHiz = suankiHiz + 5000;
-    yakit = yakit - 12;
+    num HEDEF_HIZ = 28000;
+    num suankiHiz = 0;
+    num yakit = 95;
     
-    print("Hiz: ");
-    println(suankiHiz);
-
-    if (yakit < 20) {
-        println("UYARI: Kritik yakit seviyesi!");
+    while (suankiHiz < HEDEF_HIZ) {
+        suankiHiz = suankiHiz + 5000;
+        yakit = yakit - 12;
+        
+        print("Hiz: ");
+        println(suankiHiz);
+    
+        if (yakit < 20) {
+            println("UYARI: Kritik yakit seviyesi!");
+        }
     }
-}
-
-if (suankiHiz >= HEDEF_HIZ) {
-    println("BASARI: Yorungeye oturuldu.");
-}
+    
+    if (suankiHiz >= HEDEF_HIZ) {
+        println("BASARI: Yorungeye oturuldu.");
+    }
 ´´´
