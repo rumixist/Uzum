@@ -39,7 +39,7 @@ private:
     std::shared_ptr<Stmt> assignment();
     std::shared_ptr<Expr> orExpression();
     std::shared_ptr<Expr> andExpression();
-    std::shared_ptr<Stmt> expressionStatement(); // BU EKSİK OLABİLİR
+    std::shared_ptr<Stmt> expressionStatement();
 };
 
 #endif
