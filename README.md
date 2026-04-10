@@ -16,7 +16,7 @@ Bir VS Code eklentisi mevcuttur. Bu repodaki .vsix dosyasını indirip VS Code'a
         suankiHiz = suankiHiz + 5000;
         yakit = yakit - 12;
         
-        print("Hiz: ");
+        println("Hiz: ");
         println(suankiHiz);
     
         if (yakit < 20) {
