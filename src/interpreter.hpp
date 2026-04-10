@@ -40,22 +40,17 @@ private:
             if (varStmt->initializer != nullptr) {
                 value = evaluate(varStmt->initializer);
             }
-            // ESKİ SATIRI SİLDİK, YERİNE BU BLOK GELDİ:
             try {
-                // Değişken zaten var mı diye kontrol et
                 environment.get(varStmt->name.lexeme);
                 
-                // Varsa: 'assign' çağır ki içindeki 'isConstant' kontrolü çalışsın
                 environment.assign(varStmt->name.lexeme, value);
             } catch (const std::runtime_error&) {
-                // Yoksa: Yeni bir değişken olarak tanımla
                 environment.define(varStmt->name.lexeme, value, varStmt->type, varStmt->isConstant);
             }
         }
         else if (auto printStmt = std::dynamic_pointer_cast<PrintStmt>(stmt)) {
             std::string value = evaluate(printStmt->expression);
     
-            // Metinleri tırnaklardan arındırma (Zaten sende olabilir, kontrol et)
             if (value.length() >= 2 && value.front() == '"' && value.back() == '"') {
                 value = value.substr(1, value.length() - 2);
             } 
@@ -68,17 +63,14 @@ private:
                     // Eğer değer gerçekten bir sayıysa ve sonuna kadar okunabilmişse
                     if (pos == value.length()) {
                         long long integral = static_cast<long long>(num);
-                        // Eğer sayı tam sayıya eşitse (örn: 55.0000 == 55)
                         if (num == integral) {
                             value = std::to_string(integral);
                         } else {
-                            // Eğer ondalıklıysa, gereksiz sondaki sıfırları sil
                             value.erase(value.find_last_not_of('0') + 1, std::string::npos);
                             if (value.back() == '.') value.pop_back();
                         }
                     }
                 } catch (...) {
-                    // Sayı değilse (true/false/nil vb.) dokunmadan devam et
                 }
             }
 
@@ -98,7 +90,6 @@ private:
                 execute(whileStmt->body);
             }
         }
-        // execute fonksiyonunun içine ekle:
         else if (auto exprStmt = std::dynamic_pointer_cast<ExpressionStmt>(stmt)) {
             evaluate(exprStmt->expression); 
         }
@@ -108,7 +99,6 @@ private:
         if (auto assign = std::dynamic_pointer_cast<AssignExpr>(expr)) {
             std::string value = evaluate(assign->value);
             
-            // İŞTE KRİTİK KONTROL BURADA ÇALIŞACAK:
             environment.assign(assign->name.lexeme, value); 
             
             return value;
@@ -124,7 +114,7 @@ private:
             std::string rightStr = evaluate(binary->right);
 
             switch (binary->op.type) {
-                // --- MATEMATİKSEL VE KIYASLAMA OPERATÖRLERİ (Sayı gerektirir) ---
+                // --- MATEMATİKSEL VE KIYASLAMA OPERATÖRLERİ  ---
                 case TokenType::PLUS:  return std::to_string(std::stod(leftStr) + std::stod(rightStr));
                 case TokenType::MINUS: return std::to_string(std::stod(leftStr) - std::stod(rightStr));
                 case TokenType::STAR:  return std::to_string(std::stod(leftStr) * std::stod(rightStr));
@@ -138,7 +128,7 @@ private:
                 case TokenType::EQUAL_EQUAL: return (leftStr == rightStr) ? "true" : "false";
                 case TokenType::BANG_EQUAL:  return (leftStr != rightStr) ? "true" : "false";
 
-                // --- MANTIKSAL OPERATÖRLER (Sayı gerektirmez, isTrue kullanır) ---
+                // --- MANTIKSAL OPERATÖRLER ---
                 case TokenType::AND: return (isTrue(leftStr) && isTrue(rightStr)) ? "true" : "false";
                 case TokenType::OR:  return (isTrue(leftStr) || isTrue(rightStr)) ? "true" : "false";
                 case TokenType::XOR: return (isTrue(leftStr) != isTrue(rightStr)) ? "true" : "false";
