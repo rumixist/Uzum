@@ -7,7 +7,6 @@
 Bir VS Code eklentisi mevcuttur. Bu repodaki .vsix dosyasını indirip VS Code'a eklenti olarak kurabilirsiniz. Daha sonra yapmanız gereken tek şey bir .uz dosyası oluşturup kodunuzu yazmak. Eklenti sayesinde sağ üstteki düğmeden kodu hemen çalıştırabilirsiniz.
 
 Örnek kod
-´´´
 
     num HEDEF_HIZ = 28000;
     num suankiHiz = 0;
@@ -28,4 +27,4 @@ Bir VS Code eklentisi mevcuttur. Bu repodaki .vsix dosyasını indirip VS Code'a
     if (suankiHiz >= HEDEF_HIZ) {
         println("BASARI: Yorungeye oturuldu.");
     }
-´´´
+
