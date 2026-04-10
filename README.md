@@ -46,7 +46,7 @@ Bu kısımda Üzüm dilinin nasıl kullanılabileceğini öğrenebilirsiniz.
     num z = 19.99; // ondalıklı da olabilen her türlü sayı
     char a = 'A'; // bir karakter
 
-    var o = 78;
+    var i = 78;
     var e = "Rafadan Tayfa";
     var t = 0.4;
     // var ifadesi joker gibi bir şey istediğiniz değişken türü için kullanabilirsiniz
