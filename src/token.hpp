@@ -21,7 +21,7 @@ enum class TokenType {
     // İşaretler
     MODULO,
 
-    // Anahtar kelimeler (Üzüm'e özel)
+    // Anahtar kelimeler
     VAR, INT, NUM, STR, BOOL, CHAR, CONST, STATIC, QUBIT, FUNCTION, IF, ELSE, 
     FOR, WHILE, RETURN, PRINT, PRINTLN, CONSOLE,
     TRUE, FALSE, NIL,
