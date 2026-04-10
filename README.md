@@ -52,28 +52,31 @@ Bu kısımda Üzüm dilinin nasıl kullanılabileceğini öğrenebilirsiniz.
 ### Koşullar ve Döngüler
 Şimdilik sadece "if" ve "while" var
 
-num sayac = 10;
-num hedef = 0;
-
-println("--- Sayim Basliyor ---");
-
-    while (sayac >= hedef) {
-        print("Sayi: ");
-        print(sayac);
+    num yakit = 100;
+    num tuketimHizi = 15;
+    num kritikEsik = 30;
     
-        // Modulo (%) operatörü ile çift sayı kontrolü
-        if (sayac % 2 == 0) {
-            println(" (Cift)");
-        }
-        
-        if (sayac % 2 != 0) {
-            println(" (Tek)");
+    println("--- Ucus Basladi ---");
+    
+    while (yakit > 0) {
+        print("Mevcut Yakit: ");
+        println(yakit);
+    
+        // Kritik yakıt kontrolü
+        if (yakit <= kritikEsik) {
+            println("UYARI: Yakit seviyesi kritik!");
         }
     
-        sayac = sayac - 1; // Sayacı bir azaltıyoruz
+        // Yakıt tüketimi
+        yakit = yakit - tuketimHizi;
+    
+        // Eğer yakıt sıfırın altına düşerse sıfıra sabitle (Negatif yakıt olmaz)
+        if (yakit < 0) {
+            yakit = 0;
+        }
     }
     
-    println("Dongu tamamlandi.");
+    println("MOTOR DURDU: Yakit tukendi.");
 
 ### Giriş/Çıkış
 Tek bir komut var şimdilik.
