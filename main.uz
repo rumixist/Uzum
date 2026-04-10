@@ -1,0 +1,47 @@
+// --- Üzüm Uzay Simülasyonu v1.2 ---
+// Navigasyon hatası giderildi (const -> num/str dönüşümü yapıldı)
+
+str GEMI_ADI = "Gokboru-1";
+num HEDEF_HIZ = 28000; 
+num MAX_YAKIT = 100;
+
+num suankiHiz = 0;
+num yakit = 95;
+num saniye = 0;
+
+println("--- Simulasyon Basliyor ---");
+println(GEMI_ADI);
+
+while (suankiHiz < HEDEF_HIZ) {
+    saniye = saniye + 1;
+    suankiHiz = suankiHiz + 5000;
+    yakit = yakit - 12;
+
+    print("Saniye: ");
+    print(saniye);
+    print(" | Hiz: ");
+    print(suankiHiz);
+    print(" | Yakit: "); 
+    println(yakit);
+
+    if (yakit < 20) {
+        println("UYARI: Kritik yakit seviyesi!");
+        if (suankiHiz < 20000) {
+            println("HATA: Yorungeye ulasilamadi, gorev iptal!");
+            yakit = 0; // Döngüyü kırmak için
+        }
+    }
+}
+
+println("---------------------------");
+
+// Madem değişken kıyaslamasında bir 'temassızlık' var, 
+// başarıyı doğrudan hızın sayısal değeriyle tescilleyelim.
+
+if (suankiHiz > 27999) {
+    println("BASARI: Yorungeye oturuldu.");
+}
+
+if (suankiHiz < 28000) {
+    println("BASARISIZ: Gorev tamamlanamadi.");
+}
