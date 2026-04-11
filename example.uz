@@ -1,47 +1,65 @@
-// --- Üzüm Uzay Simülasyonu v1.2 ---
-// Navigasyon hatası giderildi (const -> num/str dönüşümü yapıldı)
-
-str GEMI_ADI = "Gokboru-1";
-num HEDEF_HIZ = 28000; 
-num MAX_YAKIT = 100;
-
-num suankiHiz = 0;
-num yakit = 95;
-num saniye = 0;
-
-println("--- Simulasyon Basliyor ---");
-println(GEMI_ADI);
-
-while (suankiHiz < HEDEF_HIZ) {
-    saniye = saniye + 1;
-    suankiHiz = suankiHiz + 5000;
-    yakit = yakit - 12;
-
-    print("Saniye: ");
-    print(saniye);
-    print(" | Hiz: ");
-    print(suankiHiz);
-    print(" | Yakit: "); 
-    println(yakit);
-
-    if (yakit < 20) {
-        println("UYARI: Kritik yakit seviyesi!");
-        if (suankiHiz < 20000) {
-            println("HATA: Yorungeye ulasilamadi, gorev iptal!");
-            yakit = 0; // Döngüyü kırmak için
-        }
+// 1. Yardımcı Görev: Bölünme Kontrolü (Mod operatörü testi)
+task tamBolunurMu(sayi, bolen) {
+    if (sayi % bolen == 0) {
+        return true;
     }
+    return false;
 }
 
-println("---------------------------");
+// 2. Mantıksal Görev: Mükemmel Sayı Kontrolü
+// (Kendisi hariç bölenlerinin toplamı kendisine eşit olan sayı)
+task mukemmelMi(n) {
+    if (n < 2) { return false; }
 
-// Madem değişken kıyaslamasında bir 'temassızlık' var, 
-// başarıyı doğrudan hızın sayısal değeriyle tescilleyelim.
+    num toplam = 0;
+    num i = 1;
 
-if (suankiHiz > 27999) {
-    println("BASARI: Yorungeye oturuldu.");
+    // Sınır testi: i < n (Kendisi hariç)
+    while (i < n) {
+        if (tamBolunurMu(n, i)) {
+            toplam = toplam + i;
+        }
+        i = i + 1;
+    }
+
+    return (toplam == n);
 }
 
-if (suankiHiz < 28000) {
-    println("BASARISIZ: Gorev tamamlanamadi.");
+// 3. Karmaşık Görev: Sayı Analiz Laboratuvarı
+task analizEt(limit) {
+    println("--- Uzum Analiz Laboratuvari Basliyor ---");
+    
+    num sayac = 1;
+    num bulunanAdet = 0;
+
+    while (sayac <= limit) {
+        bool mukemmel = mukemmelMi(sayac);
+        
+        // Mantıksal Operatör Testi (XOR ve AND bir arada)
+        // Hem 6'dan büyük olacak hem de (Mükemmel olması ile 28 olmaması durumu farklı olacak)
+        if (mukemmel == true) {
+            print("Bulunan Mukemmel Sayi: ");
+            println(sayac);
+            bulunanAdet = bulunanAdet + 1;
+        }
+
+        sayac = sayac + 1;
+    }
+
+    return bulunanAdet;
+}
+
+// --- ANA AKIŞ (TEST) ---
+
+num aramaLimiti = 30; // 6 ve 28'i bulmasını bekliyoruz
+num sonuc = analizEt(aramaLimiti);
+
+print("Toplam bulunan mukemmel sayi adedi: ");
+println(sonuc);
+
+// Final Karşılaştırma Testi
+if (sonuc >= 2 and aramaLimiti <= 50) {
+    println("Test Basarili: Verimli calisma araliginda.");
+} else {
+    println("Test Kritik: Islem kapasitesi yetersiz.");
 }
