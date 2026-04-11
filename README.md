@@ -1,5 +1,5 @@
 # Üzüm
-Üzüm C++ ile geliştirilmiştir. Matematiksel ve Fiziksel hesaplamalar için geliştirilecek. Şuanki sürümü baya erken bir sürüm olduğu için çok fazla şeyi yok.
+Üzüm kodlama dili, C++ ile geliştirilmiştir. Matematiksel ve Fiziksel hesaplamalar için geliştirilecek. Şuanki sürümü baya erken bir sürüm olduğu için çok fazla şeyi yok.
 
 .uz dosya uzantısında çalıştırabilirsiniz
 
