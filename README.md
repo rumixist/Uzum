@@ -53,32 +53,32 @@ Bu kısımda Üzüm dilinin nasıl kullanılabileceğini öğrenebilirsiniz.
 
 ### Koşullar ve Döngüler
 Şimdilik sadece "if" ve "while" var
+else if ve else de var
 
-    num yakit = 100;
-    num tuketimHizi = 15;
-    num kritikEsik = 30;
+    num irtifa = 0;
+    num hedefIrtifa = 1000;
+    num artisMiktari = 200;
     
-    println("--- Ucus Basladi ---");
+    println("--- Gökbörü-1 Uçuş Kontrol Sistemi Başlatılıyor ---");
     
-    while (yakit > 0) {
-        print("Mevcut Yakit: ");
-        println(yakit);
+    while (irtifa <= hedefIrtifa) {
+        print("Mevcut İrtifa: ");
+        println(irtifa);
     
-        // Kritik yakıt kontrolü
-        if (yakit <= kritikEsik) {
-            println("UYARI: Yakit seviyesi kritik!");
+        if (irtifa == 0) {
+            println("Durum: Pistte, kalkış hazırlığı yapılıyor.");
+        } else if (irtifa > 0 and irtifa < 500) {
+            println("Durum: Tırmanış devam ediyor, düşük irtifa.");
+        } else if (irtifa >= 500 and irtifa < 1000) {
+            println("Durum: Seyir irtifasına yaklaşıldı, motorlar stabilize.");
+        } else {
+            println("Durum: Hedef irtifaya ulaşıldı, otomatik pilot devrede.");
         }
     
-        // Yakıt tüketimi
-        yakit = yakit - tuketimHizi;
-    
-        // Eğer yakıt sıfırın altına düşerse sıfıra sabitle (Negatif yakıt olmaz)
-        if (yakit < 0) {
-            yakit = 0;
-        }
+        irtifa = irtifa + artisMiktari;
     }
     
-    println("MOTOR DURDU: Yakit tukendi.");
+    println("--- Uçuş Görevi Tamamlandı ---");
 
 ### Giriş/Çıkış
 Tek bir komut var şimdilik.
@@ -88,4 +88,70 @@ Tek bir komut var şimdilik.
 Normalde println() komutunun adından da anlaşılacağı gibi yeni bir satıra yazdırması gerekiyordu. Ancak şimdilik böyle kaldı. İlerde print işlevini ekleyince bunu olması gerektiği haline getirmeye çalışırız belki.
 
 ### Fonksiyonlar
-Daha eklenmedi
+aşağıdaki gibi fonksiyon oluşturabilirsiniz
+
+    task topla(x, y) {
+        return x + y;
+    }
+
+    println(topla(4, 8)); 
+
+### Matematiksel ve Mantıksal işlemler
+
+    // 1. Matematiksel Fonksiyon: Hız ve İrtifa Bazlı Basınç Katsayısı
+    task katsayiHesapla(hiz, irtifa) {
+        // Karmaşık işlem önceliği testi: (A + B) * C / D - (E % F)
+        // Negatif sayı ve ondalıklı sayı desteği de burada test edilir
+        num sonuc = (hiz + 150.5) * 0.85 / (irtifa + 1) - (hiz % 7);
+        return sonuc;
+    }
+    
+    // 2. Mantıksal Fonksiyon: Uçuş Zarfları (Flight Envelope) Kontrolü
+    task guvenliMi(hiz, irtifa, katsayi) {
+        // AND, OR, XOR ve Karşılaştırma operatörlerinin devasa zinciri
+        bool hizKritik = (hiz > 800 or hiz < 100);
+        bool irtifaKritik = (irtifa >= 12000);
+        
+        // Katsayı 1.0 ile 5.0 arasında mı? (Mantıksal Sıkıştırma)
+        bool katsayiNormal = (katsayi >= 1.0 and katsayi <= 5.0);
+    
+        // XOR Testi: Ya hız kritik olacak ya irtifa, ikisi birden kritikse sistem alarm verir!
+        if ((hizKritik xor irtifaKritik) and katsayiNormal == true) {
+            return true;
+        }
+        
+        // Eğer katsayı anormal ise veya her iki durum da kritikse false döner
+        return false;
+    }
+    
+    // --- ANA TEST PROGRAMI ---
+    
+    num m_hiz = 450;
+    num m_irtifa = 5000;
+    num m_sayac = 1;
+    
+    println("--- Gökbörü-1 Aviyonik Matematik Testi Başlıyor ---");
+    
+    while (m_sayac <= 3) {
+        num guncelKatsayi = katsayiHesapla(m_hiz, m_irtifa);
+        bool durum = guvenliMi(m_hiz, m_irtifa, guncelKatsayi);
+    
+        print("Deney #"); print(m_sayac);
+        print(" | Hiz: "); print(m_hiz);
+        print(" | Katsayi: "); println(guncelKatsayi);
+    
+        if (durum == true) {
+            println("Sinyal Durumu: Stabil ve Güvenli.");
+        } else if (durum == false and m_hiz > 400) {
+            println("Sinyal Durumu: Stabil Değil - Katsayı Limit Dışı!");
+        } else {
+            println("Sinyal Durumu: KRİTİK HATA!");
+        }
+    
+        // Parametreleri her adımda değiştirerek sınırları zorla
+        m_hiz = m_hiz + 200;
+        m_irtifa = m_irtifa + 4000;
+        m_sayac = m_sayac + 1;
+    }
+    
+    println("--- Analiz Tamamlandı ---");
