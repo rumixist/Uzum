@@ -7,7 +7,7 @@ enum class TokenType {
     // Tek karakterli simgeler
     LEFT_PAREN, RIGHT_PAREN, LEFT_BRACE, RIGHT_BRACE,
     COMMA, DOT, MINUS, PLUS, SEMICOLON, SLASH, STAR,
-    EQUALS, BANG, GREATER, LESS,
+    EQUALS, BANG, GREATER, LESS, COLON,
 
     // İki karakterli simgeler
     BANG_EQUAL, EQUAL_EQUAL, GREATER_EQUAL, LESS_EQUAL, MINUS_EQUAL, PLUS_EQUAL,
@@ -21,9 +21,9 @@ enum class TokenType {
     // İşaretler
     MODULO,
 
-    // Anahtar kelimeler
-    VAR, INT, NUM, STR, BOOL, CHAR, CONST, STATIC, QUBIT, FUNCTION, IF, ELSE, 
-    FOR, WHILE, RETURN, PRINT, PRINTLN, CONSOLE,
+    // Anahtar kelimeler (Üzüm'e özel)
+    VAR, INT, NUM, STR, BOOL, CHAR, CONST, STATIC, QUBIT, FUNCTION, IF, ELSE, ELSE_IF,
+    FOR, WHILE, RETURN, PRINT, PRINTLN, CONSOLE, TASK,
     TRUE, FALSE, NIL,
 
     END_OF_FILE

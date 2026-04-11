@@ -1,8 +1,9 @@
 #include "lexer.hpp"
 #include <map>
 
+// Üzüm dilinin tüm anahtar kelimeleri
 static std::map<std::string, TokenType> keywords = {
-    {"import",   TokenType::VAR}, 
+    {"import",   TokenType::VAR}, // Dosya dahil etme
     {"var",      TokenType::VAR},
     {"int",      TokenType::INT},
     {"num",      TokenType::NUM},
@@ -17,18 +18,19 @@ static std::map<std::string, TokenType> keywords = {
     {"static",   TokenType::STATIC},
     {"true",     TokenType::TRUE},
     {"false",    TokenType::FALSE},
-    {"and",      TokenType::AND},
+    {"and",      TokenType::AND}, // Mantıksal operatörler
     {"or",       TokenType::OR},
     {"not",      TokenType::NOT},
     {"xor",      TokenType::XOR},
     {"nand",     TokenType::NAND},
     {"nor",      TokenType::NOR},
     {"xnor",     TokenType::XNOR},
-    {"switch",   TokenType::IF},
+    {"switch",   TokenType::IF}, // Parser aşamasında ayrılacak
     {"case",     TokenType::IF},
     {"default",  TokenType::IF},
     {"otherwise",TokenType::ELSE},
     {"if",       TokenType::IF},
+    {"else if",  TokenType::ELSE_IF},
     {"else",     TokenType::ELSE},
     {"for",      TokenType::FOR},
     {"while",    TokenType::WHILE},
@@ -41,7 +43,8 @@ static std::map<std::string, TokenType> keywords = {
     {"in",       TokenType::FOR},
     {"return",   TokenType::RETURN},
     {"do",       TokenType::WHILE},
-    {"until",    TokenType::WHILE}
+    {"until",    TokenType::WHILE},
+    {"task",    TokenType::TASK}
 };
 
 Lexer::Lexer(const std::string& source) : source(source) {}
@@ -59,6 +62,7 @@ char Lexer::peek() {
     return source[current];
 }
 
+// Bir sonraki karakter beklenen karakter ise tüketir ve true döner
 bool Lexer::match(char expected) {
     if (isAtEnd()) return false;
     if (source[current] != expected) return false;
@@ -84,8 +88,9 @@ void Lexer::scanToken() {
         case ';': addToken(TokenType::SEMICOLON); break;
         case '*': addToken(TokenType::STAR); break;
         case '%': addToken(TokenType::MODULO); break;
+        case ':': addToken(TokenType::COLON); break;
 
-        // --- OPERATÖRLER ---
+        // --- OPERATÖRLER (DÜZELTİLMİŞ) ---
         case '-': 
             addToken(match('=') ? TokenType::MINUS_EQUAL : TokenType::MINUS); break; 
         case '+': 
@@ -97,13 +102,13 @@ void Lexer::scanToken() {
         case '<':
             addToken(match('=') ? TokenType::LESS_EQUAL : TokenType::LESS); break;
         case '>':
-
+            // BURASI: match('=') TRUE dönerse GREATER_EQUAL ekler ve '=' karakterini tüketir.
             addToken(match('=') ? TokenType::GREATER_EQUAL : TokenType::GREATER); break;
 
         // --- BÖLME VE YORUM SATIRI ---
         case '/':
             if (match('/')) {
-
+                // Yorum satırı: Satır sonuna kadar oku ama token ekleme
                 while (peek() != '\n' && !isAtEnd()) advance();
             } else {
                 addToken(TokenType::SLASH);
@@ -129,7 +134,8 @@ void Lexer::scanToken() {
             } else if (isalpha(c) || c == '_') {
                 scanIdentifier();
             } else {
-
+                // Bilinmeyen karakterleri şimdilik sessizce geçiyoruz
+                // İstersen buraya bir cerr yazdırabilirsin
             }
             break;
     }
@@ -141,7 +147,7 @@ void Lexer::scanString() {
         advance();
     }
     if (isAtEnd()) return; 
-    advance();
+    advance(); // Kapanış tırnağı
     addToken(TokenType::STRING);
 }
 

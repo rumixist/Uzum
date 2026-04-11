@@ -36,10 +36,17 @@ private:
     std::shared_ptr<Expr> factor();
     std::shared_ptr<Expr> comparison();
     std::shared_ptr<Stmt> whileStatement();
-    std::shared_ptr<Stmt> assignment();
     std::shared_ptr<Expr> orExpression();
     std::shared_ptr<Expr> andExpression();
     std::shared_ptr<Stmt> expressionStatement();
+    std::shared_ptr<Stmt> functionDeclaration();
+    std::shared_ptr<Expr> finishCall(std::shared_ptr<Expr> callee);
+    std::shared_ptr<Stmt> returnStatement();
+    std::shared_ptr<Expr> assignment();
+    std::shared_ptr<Expr> unary();
+    std::shared_ptr<Expr> xorExpression();
+    std::shared_ptr<Expr> equality();
+
 };
 
 #endif

@@ -65,10 +65,16 @@ public:
 // if yapısını temsil eder
 class IfStmt : public Stmt {
 public:
-    IfStmt(std::shared_ptr<Expr> condition, std::shared_ptr<Stmt> thenBranch) 
-        : condition(condition), thenBranch(thenBranch) {}
-    std::shared_ptr<Expr> condition;
-    std::shared_ptr<Stmt> thenBranch;
+    struct Branch {
+        std::shared_ptr<Expr> condition;
+        std::shared_ptr<Stmt> statement;
+    };
+
+    std::vector<Branch> branches; // İlk 'if' ve tüm 'else if'ler buraya
+    std::shared_ptr<Stmt> elseBranch; // Sadece final 'else' buraya
+
+    IfStmt(std::vector<Branch> branches, std::shared_ptr<Stmt> elseBranch)
+        : branches(std::move(branches)), elseBranch(std::move(elseBranch)) {}
 };
 
 // Karşılaştırma ifadeleri (x > 10 gibi)
@@ -104,6 +110,44 @@ public:
         : name(name), value(value) {}
     Token name;
     std::shared_ptr<Expr> value;
+};
+
+class FunctionStmt : public Stmt {
+public:
+    Token name;
+    std::vector<Token> params;
+    std::vector<std::shared_ptr<Stmt>> body;
+
+    FunctionStmt(Token name, std::vector<Token> params, std::vector<std::shared_ptr<Stmt>> body)
+        : name(name), params(params), body(body) {}
+};
+
+class ReturnStmt : public Stmt {
+public:
+    Token keyword; // 'return' kelimesi
+    std::shared_ptr<Expr> value; // Döndürülen değer (boş da olabilir)
+
+    ReturnStmt(Token keyword, std::shared_ptr<Expr> value)
+        : keyword(keyword), value(value) {}
+};
+
+class CallExpr : public Expr {
+public:
+    std::shared_ptr<Expr> callee; // Çağrılan şey (fonksiyon adı)
+    Token paren; // Hata mesajları için sağ parantez konumu
+    std::vector<std::shared_ptr<Expr>> arguments; // Gönderilen değerler
+
+    CallExpr(std::shared_ptr<Expr> callee, Token paren, std::vector<std::shared_ptr<Expr>> arguments)
+        : callee(callee), paren(paren), arguments(arguments) {}
+};
+
+class UnaryExpr : public Expr {
+public:
+    Token op;
+    std::shared_ptr<Expr> right;
+
+    UnaryExpr(Token op, std::shared_ptr<Expr> right)
+        : op(op), right(right) {}
 };
 
 #endif
